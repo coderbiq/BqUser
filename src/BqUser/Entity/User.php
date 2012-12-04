@@ -1,9 +1,10 @@
 <?php
 namespace BqUser\Entity;
 
+use Zend\Db\RowGateway\RowGateway;
 use BqCore\Entity\EntityInterface;
 
-class User implements EntityInterface, UserInterface
+class User extends RowGateway implements EntityInterface, UserInterface
 {
     public function getId() { return $this->id; }
 
