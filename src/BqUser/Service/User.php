@@ -9,6 +9,7 @@ class User extends AbstractTableService
     public function createEntity() {
         $userEntity = new UserEntity('id', $this->getTable(), 
             $this->getAdapter());
+        $userEntity = $this->parseEntity($userEntity);
         return $userEntity;
     }
 
