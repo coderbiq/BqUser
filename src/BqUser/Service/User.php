@@ -3,7 +3,6 @@ namespace BqUser\Service;
 
 use BqCore\Service\AbstractTableService;
 use BqUser\Entity\User as UserEntity;
-use BqUser\Db\Table\User as UserTable;
 
 class User extends AbstractTableService
 {

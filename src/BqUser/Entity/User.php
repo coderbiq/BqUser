@@ -1,13 +1,10 @@
 <?php
 namespace BqUser\Entity;
 
-use Zend\Db\RowGateway\RowGateway;
-use BqCore\Entity\EntityInterface;
+use BqCore\Entity\AbstractEntity;
 
-class User extends RowGateway implements EntityInterface, UserInterface
+class User extends AbstractEntity implements UserInterface
 {
-    public function getId() { return $this->id; }
-
     public function getNickname() { return $this->nickname; }
     public function setNickname($nickname) {
         $this->nickname;
