@@ -5,8 +5,9 @@ return array(
             'BqUser\Db\Adapter' => 'Zend\Db\Adapter\Adapter',
         ),
         'factories' => array(
-            'User' => 'User\Service\User',
-            'User\Auth' => 'User\Service\Auth',
+            'User'         => 'User\Service\User',
+            'User\Auth'    => 'User\Service\Auth',
+            'User\Account' => 'User\Service\Account'
         ),
     )
 );
