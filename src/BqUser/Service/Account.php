@@ -5,6 +5,7 @@ use BqCore\Service\AbstractTableService;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\Result;
 use Zend\Db\RowGateway\RowGateway;
+use BqUser\Entity\Account as AccountEntity;
 
 class Account extends AbstractTableService implements AdapterInterface
 {
@@ -13,7 +14,7 @@ class Account extends AbstractTableService implements AdapterInterface
     public function validateEmailAndPassword($email, $password) {
         $account = $this->select(array('email'=>$email))->current();
         if(!empty($account)) {
-            if($account->password == md5($password))
+            if($account->getPassword() == md5($password))
                 $this->authAccount = $account;
         }
 
@@ -24,11 +25,15 @@ class Account extends AbstractTableService implements AdapterInterface
         if(empty($this->authAccount))
             return new Result(Result::FAILURE_IDENTITY_NOT_FOUND);
 
-        return new Result(Result::SUCCESS, $this->authAccount->userId);
+        return new Result(Result::SUCCESS, 
+            $this->authAccount->getUser()->getId());
     }
 
     public function createEntity() {
-        return new RowGateway('id', $this->getTable(), $this->getAdapter());
+        $account = new AccountEntity('id', $this->getTable(), 
+            $this->getAdapter());
+        $account->setUserService($this->getServiceLocator()->get('User'));
+        return $account;
     }
 
     public static function getTableName() { return 'bquser_account'; }
