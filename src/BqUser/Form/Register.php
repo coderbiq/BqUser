@@ -8,6 +8,7 @@ class Register extends Form
 {
     public function __construct($name = null, $options = array()) {
         parent::__construct($name, $options);
+        $this->setAttribute('class', 'form-horizontal');
         $this->initElements();
     }
 
@@ -30,9 +31,8 @@ class Register extends Form
 
         $this->add(array(
             'name' => 'register',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => '注册'
+            'options' => array(
+                'label' => '注册'
             )));
     }
 }
