@@ -1,17 +1,1 @@
-<?php echo $this->form()->openTag($form); ?>
-<div class="control-group">
-  <label class="control-label"><?php echo $form->get('email')->getOption('label'); ?></label>
-  <div class="controls">
-    <?php echo $this->formInput($form->get('email')); ?>
-  </div>
-</div>
-<div class="control-group">
-  <label class="control-label"><?php echo $form->get('password')->getOption('label'); ?></label>
-  <div class="controls">
-    <?php echo $this->formInput($form->get('password')); ?>
-  </div>
-</div>
-<div class="form-actions">
-<button type="submit" class="btn btn-primary"><?php echo $form->get('register')->getOption('label'); ?> </button>
-</div>
-<?php echo $this->form()->closeTag($form); ?>
+<?php echo $this->partial('bq-form/horizontal', array('form'=>$form)); ?>
