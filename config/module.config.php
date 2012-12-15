@@ -1,5 +1,14 @@
 <?php
 return array(
+    'BqUser' => array(
+        'account_manager' => array(
+            'adapter' => 'BqUser\User\AccountManager\Mysql',
+            'options' => array(
+                'table_name' => 'bquser_user_bind_account',
+            ),
+        )
+    ),
+
     'service_manager' => array(
         'aliases' => array(
             'BqUser\Db\Adapter' => 'Zend\Db\Adapter\Adapter',
@@ -8,6 +17,7 @@ return array(
             'BqUser\User'         => 'User\Service\User',
             'BqUser\User\Auth'    => 'User\Service\Auth',
             'BqUser\User\Account' => 'User\Service\Account'
+            'BqUser\Config'       => 'User\Service\Config',
         ),
     ),
 
