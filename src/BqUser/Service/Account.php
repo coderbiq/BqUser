@@ -72,7 +72,7 @@ class Account extends AbstractTableService implements AdapterInterface
             $this->getAdapter());
         $account->setUserEntityName($this->getServiceLocator()
             ->get('BqUser\User')->getEntityName());
-        $account = $this->parseEntity($account);
+        $account = $this->prepareEntity($account);
         return $account;
     }
 
