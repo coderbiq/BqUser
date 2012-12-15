@@ -32,10 +32,13 @@ class Account extends AbstractTableService implements AdapterInterface
     public function createEntity() {
         $account = new AccountEntity('id', $this->getTable(), 
             $this->getAdapter());
-        $account->setUserService($this->getServiceLocator()->get('User'));
+        $account->setUserEntityName($this->getServiceLocator()
+            ->get('BqUser\User')->getEntityName());
+        $account = $this->parseEntity($account);
         return $account;
     }
 
+    public function getEntityName() { return 'bquser\account'; }
     public static function getTableName() { return 'bquser_account'; }
     public static function getAdapterServiceName() { return 'User\Db\Adapter'; }
 }

@@ -10,8 +10,8 @@ class Auth extends ZendAuthService implements ServiceInterface
 
     public function getUser() {
         if($this->hasIdentity()) {
-            $userService = $this->getServiceLocator()->get('User');
-            $user = $userService->search(array('id'=>$this->getIdentity()))
+            $userService = $this->getServiceLocator()->get('BqUser\User');
+            $user = $userService->getEntities(array($this->getIdentity()))
                 ->current();
             return $user;
         }
