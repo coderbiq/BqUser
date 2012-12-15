@@ -5,6 +5,12 @@ use BqCore\Entity\AbstractEntity;
 
 class User extends AbstractEntity implements UserInterface
 {
+    public function getUsername() { return $this->username; }
+    public function setUsername($username) {
+        $this->username = $username;
+        return $this;
+    }
+
     public function getNickname() { return $this->nickname; }
     public function setNickname($nickname) {
         $this->nickname;
