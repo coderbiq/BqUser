@@ -16,7 +16,7 @@ return array(
         'factories' => array(
             'BqUser\User'    => 'User\Service\User',
             'BqUser\Auth'    => 'User\Service\Auth',
-            'BqUser\Account' => 'User\Service\Account'
+            'BqUser\Account' => 'User\Service\Account',
             'BqUser\Config'  => 'User\Service\Config',
         ),
     ),
