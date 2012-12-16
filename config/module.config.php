@@ -14,10 +14,10 @@ return array(
             'BqUser\Db\Adapter' => 'Zend\Db\Adapter\Adapter',
         ),
         'factories' => array(
-            'BqUser\User'    => 'User\Service\User',
-            'BqUser\Auth'    => 'User\Service\Auth',
-            'BqUser\Account' => 'User\Service\Account',
-            'BqUser\Config'  => 'User\Service\Config',
+            'BqUser\User'    => 'BqUser\Service\User',
+            'BqUser\Auth'    => 'BqUser\Service\Auth',
+            'BqUser\Account' => 'BqUser\Service\Account',
+            'BqUser\Config'  => 'BqUser\Service\Config',
         ),
     ),
 
