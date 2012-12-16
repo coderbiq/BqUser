@@ -10,7 +10,7 @@ class RegisterTest extends PHPUnit_Framework_TestCase
     public function testInput() {    
         $registerForm = new RegisterForm();
         $registerForm->setData(array(
-            'nickname' => 'test',
+            'nickname' => 'test1',
             'email'    => 'test@test.com',
             'password' => '123qwe'
             ));
@@ -19,22 +19,47 @@ class RegisterTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @dataProvider inputNicknameErrorData
+     * @dataProvider inputErrorData
      **/
-    public function testInputNicknameError($nickname, $email, $password) {
+    public function testInputError($data) {
         $registerForm = new RegisterForm();
-        $registerForm->setData(array(
-            'nickname' => $nickname,
-            'email'    => $email,
-            'password' => $password
-            ));
+        $registerForm->setData($data);
         $this->assertFalse($registerForm->isValid());
     }
     
-    public function inputNicknameErrorData() {
-        return array(
-            array(null, 'test@test.com', '123qew')
-            );
+    public function inputErrorData() {
+        $trueData = array(
+            'nickname' => 'test1', 
+            'email'=>'test@test.com', 
+            'password'=>'123qew');
+        $errorDatas = array();
+
+        $errorData = $trueData;
+        unset($errorData['nickname']);
+        $errorDatas[] = array($errorData);
+
+        $errorData = $trueData;
+        $errorData['nickname'] = 'abc';
+        $errorDatas[] = array($errorData);
+
+        $errorData = $trueData;
+        for($loop=0; $loop<=30; $loop++)
+            $errorData['nickname'] .= 'a';
+        $errorDatas[] = array($errorData);
+
+        $errorData = $trueData;
+        unset($errorData['email']);
+        $errorDatas[] = array($errorData);
+
+        $errorData = $trueData;
+        $errorData['email'] = 'abc';
+        $errorDatas[] = array($errorData);
+
+        $errorData = $trueData;
+        unset($errorData['password']);
+        $errorDatas[] = array($errorData);
+
+        return $errorDatas;
     }
     
     protected function getServiceLocator() {
