@@ -80,8 +80,13 @@ abstract class Base extends Form
                         'name'=>'string_length', 
                         'options'=>array('min'=>5, 'max'=>25)
                     ),
-                    array('name' => 'alnum'))
-                ));
+                    array(
+                        'name' => 'regex',
+                        'options'=>array(
+                            'pattern'=>'/^[a-zA-Z][a-zA-z0-9\-]+$/'),
+                    )
+                )
+            ));
         }
 
         $this->setInputFilter($inputFilters);

@@ -26,6 +26,40 @@ class RegisterTest extends PHPUnit_Framework_TestCase
         $registerForm->setData($data);
         $this->assertFalse($registerForm->isValid());
     }
+
+    /**
+     * @dataProvider usernameData
+     */
+    public function testUsernameInput($username, $isValid) {
+        $data = array(
+            'nickname' => 'test1', 
+            'email'=>'test@test.com', 
+            'password'=>'123qew');
+
+        $registerForm = new RegisterForm('register', 
+            array('enable_username'=>true));
+        $registerForm->setData($data);
+        $this->assertFalse($registerForm->isValid());
+
+        $data['username'] = $username;
+        $registerForm->setData($data);
+        $this->assertEquals($isValid, $registerForm->isValid());
+    }
+
+    public function usernameData() {
+        $longName = '';
+        for($loop=0; $loop<30; $loop++)
+            $longName .= 'a';
+
+        return array(
+            array('test1'   , true),
+            array('test-1'  , true),
+            array('1-test'  , false),
+            array('test 1'  , false),
+            array('t'       , false),
+            array($longName , false),
+        );
+    }
     
     public function inputErrorData() {
         $trueData = array(
