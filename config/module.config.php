@@ -6,7 +6,12 @@ return array(
             'options' => array(
                 'table_name' => 'bquser_user_bind_account',
             ),
-        )
+        ),
+        'account_table'  => 'bquser_account',
+        'email_field'    => 'email',
+        'user_table'     => 'bquser_user',
+        'username_field' => 'username',
+        'nickname_field' => 'nickname',
     ),
 
     'service_manager' => array(

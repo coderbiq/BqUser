@@ -4,6 +4,7 @@ namespace BqUseTest\FormTest;
 use PHPUnit_Framework_TestCase;
 use Zend\Mvc\Application;
 use BqUser\Form\Register as RegisterForm;
+use Zend\Validator\Db\NoRecordExists;
 
 class RegisterTest extends PHPUnit_Framework_TestCase
 {
@@ -44,6 +45,40 @@ class RegisterTest extends PHPUnit_Framework_TestCase
         $data['username'] = $username;
         $registerForm->setData($data);
         $this->assertEquals($isValid, $registerForm->isValid());
+    }
+
+    /**
+     * @dataProvider noRecordExistsData
+     */
+    public function testNicknameNoRecordExists($element, $table, $field) {
+        $registerForm = new RegisterForm('regiter', array(
+            'user_table'     => 'test_user_table',
+            'account_table'  => 'test_account_table',
+            'nickname_field' => 'test_nickname_filed',
+            'email_field'    => 'test_email_filed',
+            'username_field' => 'test_username_filed',
+            'enable_username'=>true
+        ));
+        $validators = $registerForm->getInputFilter()->get($element)
+            ->getValidatorChain()->getValidators();
+
+        foreach($validators as $validator) {
+            if($validator['instance'] instanceof NoRecordExists) {
+                $dbValidator = $validator['instance'];
+            }
+        }
+        if(!isset($dbValidator))
+            $this->fail();
+        $this->assertEquals($table, $dbValidator->getTable());
+        $this->assertEquals($field, $dbValidator->getField());
+    }
+
+    public function noRecordExistsData() {
+        return array(
+            array('nickname', 'test_user_table', 'test_nickname_filed'),
+            array('email', 'test_account_table', 'test_email_filed'),
+            array('username', 'test_user_table', 'test_username_filed'),
+        );
     }
 
     public function usernameData() {

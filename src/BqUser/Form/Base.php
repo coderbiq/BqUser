@@ -3,6 +3,7 @@ namespace BqUser\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator;
 
 abstract class Base extends Form
 {
@@ -42,19 +43,22 @@ abstract class Base extends Form
 
     protected function prepareInputFilter() {
         $inputFilters = new InputFilter();
+
+        $inputFilters->add(array(
+            'name' => 'email',
+            'required' => true,
+            'validators' => $this->getEmailValidator()
+        ));
+
         $inputFilters->add(array(
             'name' => 'nickname',
             'required' => true,
             'filters' => array(
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
-                array(
-                    'name' => 'string_length',
-                    'options' => array('min'=>5, 'max'=>25)
-                )
-            ),
+            'validators' => $this->getNicknameValidator()
         ));
+
         $inputFilters->add(array(
             'name' => 'password',
             'required' => true,
@@ -68,6 +72,7 @@ abstract class Base extends Form
                 )
             ),
         ));
+
         if($this->getOption('enable_username')) {
             $inputFilters->add(array(
                 'name' => 'username',
@@ -75,20 +80,66 @@ abstract class Base extends Form
                 'filters' => array(
                     array('name' => 'StringTrim')
                 ),
-                'validators' => array(
-                    array(
-                        'name'=>'string_length', 
-                        'options'=>array('min'=>5, 'max'=>25)
-                    ),
-                    array(
-                        'name' => 'regex',
-                        'options'=>array(
-                            'pattern'=>'/^[a-zA-Z][a-zA-z0-9\-]+$/'),
-                    )
-                )
+                'validators' => $this->getUsernameValidator()
             ));
         }
 
         $this->setInputFilter($inputFilters);
+    }
+
+    protected function getNicknameValidator() {
+        $validators = array(array(
+            'name' => 'string_length',
+            'options' => array('min'=>5, 'max'=>25)
+        ));
+
+        $dbValidator = $this->getNoRecordExistsValidator('user_table', 
+            'nickname_field');
+        if($dbValidator)
+            $validators[] = $dbValidator;
+
+        return $validators;
+    }
+
+    protected function getUsernameValidator() {
+        $validators = array(
+            array(
+                'name'=>'string_length', 
+                'options'=>array('min'=>5, 'max'=>25)
+            ),
+            array(
+                'name' => 'regex',
+                'options'=>array(
+                    'pattern'=>'/^[a-zA-Z][a-zA-z0-9\-]+$/'),
+            )
+        );
+
+        $dbValidator = $this->getNoRecordExistsValidator('user_table', 
+            'username_field');
+        if($dbValidator)
+            $validators[] = $dbValidator;
+
+        return $validators;
+    }
+
+    protected function getEmailValidator() {
+        $validators = array();
+        $dbValidator = $this->getNoRecordExistsValidator('account_table', 
+            'email_field');
+        if($dbValidator)
+            $validators[] = $dbValidator;
+        return $validators;
+    }
+
+    protected function getNoRecordExistsValidator($table, $field) {
+        $table = $this->getOption($table);
+        $field = $this->getOption($field);
+        if($table && $field) {
+            return new Validator\Db\NoRecordExists(
+                array('table' => $table, 'field' => $field)
+            );
+        }
+
+        return false;
     }
 }
