@@ -81,8 +81,7 @@ abstract class Base extends Form
                         'options'=>array('min'=>5, 'max'=>25)
                     ),
                     array('name' => 'alnum'))
-                )
-            ));
+                ));
         }
 
         $this->setInputFilter($inputFilters);

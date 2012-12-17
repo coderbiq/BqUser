@@ -59,6 +59,10 @@ class RegisterTest extends PHPUnit_Framework_TestCase
         unset($errorData['password']);
         $errorDatas[] = array($errorData);
 
+        $errorData = $trueData;
+        $errorData['password'] = 'a';
+        $errorDatas[] = array($errorData);
+
         return $errorDatas;
     }
     
