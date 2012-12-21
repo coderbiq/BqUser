@@ -20,15 +20,9 @@ class User extends AbstractListener
         if($target instanceof UserInterface 
             && $relyonEntity instanceof AccountInterface) {
 
-            $config = $this->getServiceLocator()->get('BqUser\Config')
-                ->get('account_manager');
-            $adapterName = $config->get('adapter');
-            $option = $config->get('options');
-
-            $accountManager = new $adapterName($options);
-            $accountManager->setUser($target)
-                ->setServiceLocator($this->getServiceLocator())
-                ->bindAccount($relyonEntity);
+            $accountManager = $this->getServiceLocator()->get('BqUser\User')
+                ->getAccountManager($target);
+            $accountManager->bindAccount($relyonEntity);
         }
     }
 }

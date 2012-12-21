@@ -15,7 +15,6 @@ class Account extends AbstractEntity implements AccountInterface
 
     public function setUser(UserInterface $user) {
         $this->userId = $user->id;
-        $this->addRelyonEntity($user);
         $user->addRelyonEntity($this);
         return $this;
     }
