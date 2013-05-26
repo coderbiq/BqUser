@@ -1,0 +1,22 @@
+{
+    "name": "elvis-bi/bq-user",
+    "description": "zf2实现的用户模块",
+    "type": "zf2-module",
+    "license": "MIT",
+    "keywords": [
+        "zf2",
+        "user"
+    ],
+    "homepage": "https://github.com/elvis-bi/BqUser",
+    "authors": [
+        {
+            "name": "Elvis Bi",
+            "email": "elvis@dwenzi.com",
+            "homepage": "http://www.dwenzi.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "elvis-bi/zf2-module-install": "0.1.0",
+    }
+}
