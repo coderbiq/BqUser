@@ -17,6 +17,6 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "elvis-bi/zf2-module-install": "0.1.0",
+        "elvis-bi/zf2-module-install": "0.1.0"
     }
 }
