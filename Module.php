@@ -1,4 +1,5 @@
 <?php
+# test
 namespace BqUser;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
