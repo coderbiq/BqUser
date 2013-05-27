@@ -16,7 +16,18 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "elvis-bi/zf2-module-install": "0.1.0"
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "BqUser\\": "src/"
+        }
+    },
+    "target-dir": "module/BqUser",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.0-dev",
+            "dev-develop": "0.1.1-dev"
+        }
     }
 }
